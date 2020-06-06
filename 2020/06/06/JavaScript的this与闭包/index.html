@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    JavaScript的this与闭包 |
+    
+    Just Coding</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-JavaScript的this与闭包" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h1 class="article-title" itemprop="name">
+      JavaScript的this与闭包
+    </h1>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/06/06/JavaScript%E7%9A%84this%E4%B8%8E%E9%97%AD%E5%8C%85/" class="article-date">
+  <time datetime="2020-06-05T18:00:14.630Z" itemprop="datePublished">2020-06-06</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+                            
+    <div class="tocbot"></div>
+
+
+
+
+
+                                
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <h2 id="1-this"><a href="#1-this" class="headerlink" title="1.this"></a>1.this</h2><h3 id="1-1函数内部的this指向"><a href="#1-1函数内部的this指向" class="headerlink" title="1.1函数内部的this指向"></a>1.1函数内部的this指向</h3><p>这些 this 的指向，是当我们调用函数的时候确定的。调用方式的不同决定了this 的指向不同</p>
+<p>一般指向我们的调用者.</p>
+<h3 id="1-2改变函数内部-this-指向"><a href="#1-2改变函数内部-this-指向" class="headerlink" title="1.2改变函数内部 this 指向"></a>1.2改变函数内部 this 指向</h3><h4 id="1-2-1-call方法"><a href="#1-2-1-call方法" class="headerlink" title="1.2.1 call方法"></a>1.2.1 call方法</h4><p>call()方法调用一个对象。简单理解为调用函数的方式，但是它可以改变函数的 this 指向</p>
+<p>应用场景:  经常做继承. </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;</span><br><span class="line">	name: <span class="string">'andy'</span></span><br><span class="line">&#125;</span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">      <span class="built_in">console</span>.log(a+b)</span><br><span class="line">&#125;;</span><br><span class="line">fn(<span class="number">1</span>,<span class="number">2</span>)<span class="comment">// 此时的this指向的是window 运行结果为3</span></span><br><span class="line">fn.call(o,<span class="number">1</span>,<span class="number">2</span>)<span class="comment">//此时的this指向的是对象o,参数使用逗号隔开,运行结果为3</span></span><br></pre></td></tr></table></figure>
+
+<p>以上代码运行结果为:</p>
+<h4 id="1-2-2-apply方法"><a href="#1-2-2-apply方法" class="headerlink" title="1.2.2 apply方法"></a>1.2.2 apply方法</h4><p>apply() 方法调用一个函数。简单理解为调用函数的方式，但是它可以改变函数的 this 指向。</p>
+<p>应用场景:  经常跟数组有关系</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;</span><br><span class="line">	name: <span class="string">'andy'</span></span><br><span class="line">&#125;</span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">      <span class="built_in">console</span>.log(a+b)</span><br><span class="line">&#125;;</span><br><span class="line">fn()<span class="comment">// 此时的this指向的是window 运行结果为3</span></span><br><span class="line">fn.apply(o,[<span class="number">1</span>,<span class="number">2</span>])<span class="comment">//此时的this指向的是对象o,参数使用数组传递 运行结果为3</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-3-bind方法"><a href="#1-2-3-bind方法" class="headerlink" title="1.2.3 bind方法"></a>1.2.3 bind方法</h4><p>bind() 方法不会调用函数,但是能改变函数内部this 指向,返回的是原函数改变this之后产生的新函数</p>
+<p>如果只是想改变 this 指向，并且不想调用这个函数的时候，可以使用bind</p>
+<p>应用场景:不调用函数,但是还想改变this指向</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">var</span> o = &#123;</span><br><span class="line"> name: <span class="string">'andy'</span></span><br><span class="line"> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">	<span class="built_in">console</span>.log(a + b);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> f = fn.bind(o, <span class="number">1</span>, <span class="number">2</span>); <span class="comment">//此处的f是bind返回的新函数</span></span><br><span class="line">f();<span class="comment">//调用新函数  this指向的是对象o 参数使用逗号隔开</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-4-call、apply、bind三者的异同"><a href="#1-2-4-call、apply、bind三者的异同" class="headerlink" title="1.2.4 call、apply、bind三者的异同"></a>1.2.4 call、apply、bind三者的异同</h4><ul>
+<li>共同点 : 都可以改变this指向</li>
+<li>不同点:<ul>
+<li>call 和 apply  会调用函数, 并且改变函数内部this指向.</li>
+<li>call 和 apply传递的参数不一样,call传递参数使用逗号隔开,apply使用数组传递</li>
+<li>bind  不会调用函数, 可以改变函数内部this指向.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>应用场景<ol>
+<li>call 经常做继承. </li>
+<li>apply经常跟数组有关系.  比如借助于数学对象实现数组最大值最小值</li>
+<li>bind  不调用函数,但是还想改变this指向. 比如改变定时器内部的this指向. </li>
+</ol>
+</li>
+</ul>
+<h2 id="2-闭包"><a href="#2-闭包" class="headerlink" title="2.闭包"></a>2.闭包</h2><h3 id="2-1变量的作用域"><a href="#2-1变量的作用域" class="headerlink" title="2.1变量的作用域"></a>2.1变量的作用域</h3><p>变量根据作用域的不同分为两种：全局变量和局部变量。</p>
+<ol>
+<li>函数内部可以使用全局变量。</li>
+<li>函数外部不可以使用局部变量。</li>
+<li>当函数执行完毕，本作用域内的局部变量会销毁。</li>
+</ol>
+<h3 id="2-2什么是闭包"><a href="#2-2什么是闭包" class="headerlink" title="2.2什么是闭包"></a>2.2什么是闭包</h3><p>闭包（closure）指有权访问另一个函数作用域中变量的函数。简单理解就是 ，一个作用域可以访问另外一个函数内部的局部变量。 </p>
+<h3 id="2-3闭包的作用"><a href="#2-3闭包的作用" class="headerlink" title="2.3闭包的作用"></a>2.3闭包的作用</h3><p>作用：延伸变量的作用范围。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="keyword">var</span> num = <span class="number">10</span>;</span><br><span class="line">   <span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">       <span class="built_in">console</span>.log(num);</span><br><span class="line"> 	&#125;</span><br><span class="line">    <span class="keyword">return</span> fun;</span><br><span class="line"> &#125;</span><br><span class="line"><span class="keyword">var</span> f = fn();</span><br><span class="line">f();</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-4闭包的案例"><a href="#2-4闭包的案例" class="headerlink" title="2.4闭包的案例"></a>2.4闭包的案例</h3><ol>
+<li>利用闭包的方式得到当前li 的索引号</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; lis.length; i++) &#123;</span><br><span class="line"><span class="comment">// 利用for循环创建了4个立即执行函数</span></span><br><span class="line"><span class="comment">// 立即执行函数也成为小闭包因为立即执行函数里面的任何一个函数都可以使用它的i这变量</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</span><br><span class="line">    lis[i].onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(i);</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;)(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>闭包应用-3秒钟之后,打印所有li元素的内容</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; lis.length; i++) &#123;</span><br><span class="line">   (<span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</span><br><span class="line">     setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="built_in">console</span>.log(lis[i].innerHTML);</span><br><span class="line">     &#125;, <span class="number">3000</span>)</span><br><span class="line">   &#125;)(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>闭包应用-计算打车价格 </li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*需求分析</span></span><br><span class="line"><span class="comment">打车起步价13(3公里内),  之后每多一公里增加 5块钱.  用户输入公里数就可以计算打车价格</span></span><br><span class="line"><span class="comment">如果有拥堵情况,总价格多收取10块钱拥堵费*/</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">var</span> car = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">var</span> start = <span class="number">13</span>; <span class="comment">// 起步价  局部变量</span></span><br><span class="line">     <span class="keyword">var</span> total = <span class="number">0</span>; <span class="comment">// 总价  局部变量</span></span><br><span class="line">     <span class="keyword">return</span> &#123;</span><br><span class="line">       <span class="comment">// 正常的总价</span></span><br><span class="line">       price: <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">         <span class="keyword">if</span> (n &lt;= <span class="number">3</span>) &#123;</span><br><span class="line">           total = start;</span><br><span class="line">         &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           total = start + (n - <span class="number">3</span>) * <span class="number">5</span></span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">return</span> total;</span><br><span class="line">       &#125;,</span><br><span class="line">       <span class="comment">// 拥堵之后的费用</span></span><br><span class="line">       yd: <span class="function"><span class="keyword">function</span>(<span class="params">flag</span>) </span>&#123;</span><br><span class="line">         <span class="keyword">return</span> flag ? total + <span class="number">10</span> : total;</span><br><span class="line">       &#125;</span><br><span class="line">	&#125;</span><br><span class="line"> &#125;)();</span><br><span class="line"><span class="built_in">console</span>.log(car.price(<span class="number">5</span>)); <span class="comment">// 23</span></span><br><span class="line"><span class="built_in">console</span>.log(car.yd(<span class="literal">true</span>)); <span class="comment">// 33</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-5案例"><a href="#2-5案例" class="headerlink" title="2.5案例"></a>2.5案例</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">var</span> name = <span class="string">"The Window"</span>;</span><br><span class="line">   <span class="keyword">var</span> object = &#123;</span><br><span class="line">     name: <span class="string">"My Object"</span>,</span><br><span class="line">     getNameFunc: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">     &#125;;</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;;</span><br><span class="line"><span class="built_in">console</span>.log(object.getNameFunc()())</span><br><span class="line">-----------------------------------------------------------------------------------</span><br><span class="line"><span class="keyword">var</span> name = <span class="string">"The Window"</span>;　　</span><br><span class="line">  <span class="keyword">var</span> object = &#123;　　　　</span><br><span class="line">    name: <span class="string">"My Object"</span>,</span><br><span class="line">    getNameFunc: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> that = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> that.name;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(object.getNameFunc()())</span><br></pre></td></tr></table></figure>
+
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="http://yoursite.com/2020/06/06/JavaScript%E7%9A%84this%E4%B8%8E%E9%97%AD%E5%8C%85/" data-id="ckb37vv8z0002y0tg2p9m24kc" class="article-share-link">
+                                            Share
+                                        </a>
+                                        
+                                    </footer>
+
+    </div>
+
+    
+        
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/05/30/ES6/" class="article-nav-link">
+        <strong class="article-nav-caption">Older</strong>
+        <div class="article-nav-title">ES6</div>
+      </a>
+    
+  </nav>
+
+
+            
+
+                
+                    
+                        
+                            
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 Just Coding</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="Just Coding"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">Categories</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/tags">Tags</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>
