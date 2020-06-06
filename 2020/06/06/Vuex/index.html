@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    Vuex |
+    
+    Just Coding</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-Vuex" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Vuex
+    </h1>
+  
+  
+
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <!-- %- partial('post/date', {class_name: 'article-date', date_format: null}) % -->
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h3 id="1-Vuex概述"><a href="#1-Vuex概述" class="headerlink" title="1.Vuex概述"></a>1.Vuex概述</h3><p>Vuex是实现组件全局状态（数据）管理的一种机制，可以方便的实现组件之间的数据共享</p>
+<p>使用Vuex管理数据的好处：<br>A.能够在vuex中集中管理共享的数据，便于开发和后期进行维护<br>B.能够高效的实现组件之间的数据共享，提高开发效率<br>C.存储在vuex中的数据是响应式的，当数据发生改变时，页面中的数据也会同步更新</p>
+<a id="more"></a>
+
+<h3 id="2-Vuex的基本使用"><a href="#2-Vuex的基本使用" class="headerlink" title="2.Vuex的基本使用"></a>2.Vuex的基本使用</h3><p>创建带有vuex的vue项目，打开终端，输入命令：vue ui<br>当项目仪表盘打开之后，我们点击页面左上角的项目管理下拉列表，再点击Vue项目管理器<br>点击创建项目，如下图所示<br>第一步，设置项目名称和包管理器<br>第二步，设置手动配置项目<br>第三步，设置功能项<br>第四步，创建项目</p>
+<h3 id="3-使用Vuex完成计数器案例"><a href="#3-使用Vuex完成计数器案例" class="headerlink" title="3.使用Vuex完成计数器案例"></a>3.使用Vuex完成计数器案例</h3><p>打开刚刚创建的vuex项目，找到src目录中的App.vue组件，将代码重新编写如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;my-addition&gt;&lt;&#x2F;my-addition&gt;</span><br><span class="line"></span><br><span class="line">    &lt;p&gt;----------------------------------------&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">    &lt;my-subtraction&gt;&lt;&#x2F;my-subtraction&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import Addition from &#39;.&#x2F;components&#x2F;Addition.vue&#39;</span><br><span class="line">import Subtraction from &#39;.&#x2F;components&#x2F;Subtraction.vue&#39;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    &#39;my-subtraction&#39;: Subtraction,</span><br><span class="line">    &#39;my-addition&#39;: Addition</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在components文件夹中创建Addition.vue组件，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;h3&gt;当前最新的count值为：&lt;&#x2F;h3&gt;</span><br><span class="line">        &lt;button&gt;+1&lt;&#x2F;button&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在components文件夹中创建Subtraction.vue组件，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;h3&gt;当前最新的count值为：&lt;&#x2F;h3&gt;</span><br><span class="line">        &lt;button&gt;-1&lt;&#x2F;button&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>最后在项目根目录(与src平级)中创建 .prettierrc 文件，编写代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;semi&quot;:false,</span><br><span class="line">    &quot;singleQuote&quot;:true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-Vuex中的核心特性"><a href="#4-Vuex中的核心特性" class="headerlink" title="4.Vuex中的核心特性"></a>4.Vuex中的核心特性</h3><h4 id="A-State"><a href="#A-State" class="headerlink" title="A.State"></a>A.State</h4><p>​    State提供唯一的公共数据源，所有共享的数据都要统一放到Store中的State中存储<br>​    例如，打开项目中的store.js文件，在State对象中可以添加我们要共享的数据，如：count:0<br>​    </p>
+<pre><code>在组件中访问State的方式：
+1).this.$store.state.全局数据名称  如：this.$store.state.count
+2).先按需导入mapState函数： import { mapState } from &apos;vuex&apos;
+然后数据映射为计算属性： computed:{ ...mapState([&apos;全局数据名称&apos;]) }</code></pre><h4 id="B-Mutation"><a href="#B-Mutation" class="headerlink" title="B.Mutation"></a>B.Mutation</h4><p>Mutation用于修改变更$store中的数据<br>使用方式：<br>打开store.js文件，在mutations中添加代码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mutations: &#123;</span><br><span class="line">    add(state,step)&#123;</span><br><span class="line">      &#x2F;&#x2F;第一个形参永远都是state也就是$state对象</span><br><span class="line">      &#x2F;&#x2F;第二个形参是调用add时传递的参数</span><br><span class="line">      state.count+&#x3D;step;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在Addition.vue中给按钮添加事件代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;button @click&#x3D;&quot;Add&quot;&gt;+1&lt;&#x2F;button&gt;</span><br><span class="line"></span><br><span class="line">methods:&#123;</span><br><span class="line">  Add()&#123;</span><br><span class="line">    &#x2F;&#x2F;使用commit函数调用mutations中的对应函数，</span><br><span class="line">    &#x2F;&#x2F;第一个参数就是我们要调用的mutations中的函数名</span><br><span class="line">    &#x2F;&#x2F;第二个参数就是传递给add函数的参数</span><br><span class="line">    this.$store.commit(&#39;add&#39;,10)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用mutations的第二种方式：<br>import { mapMutations } from ‘vuex’</p>
+<p>methods:{<br>  …mapMutations([‘add’])<br>}<br>如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import &#123; mapState,mapMutations &#125; from &#39;vuex&#39;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods:&#123;</span><br><span class="line">      &#x2F;&#x2F;获得mapMutations映射的sub函数</span><br><span class="line">      ...mapMutations([&#39;sub&#39;]),</span><br><span class="line">      &#x2F;&#x2F;当点击按钮时触发Sub函数</span><br><span class="line">      Sub()&#123;</span><br><span class="line">          &#x2F;&#x2F;调用sub函数完成对数据的操作</span><br><span class="line">          this.sub(10);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed:&#123;</span><br><span class="line">      ...mapState([&#39;count&#39;])</span><br><span class="line">      </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="C-Action"><a href="#C-Action" class="headerlink" title="C.Action"></a>C.Action</h4><p>在mutations中不能编写异步的代码，会导致vue调试器的显示出错。<br>在vuex中我们可以使用Action来执行异步操作。<br>操作步骤如下：<br>打开store.js文件，修改Action，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">actions: &#123;</span><br><span class="line">  addAsync(context,step)&#123;</span><br><span class="line">    setTimeout(()&#x3D;&gt;&#123;</span><br><span class="line">      context.commit(&#39;add&#39;,step);</span><br><span class="line">    &#125;,2000)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在Addition.vue中给按钮添加事件代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;button @click&#x3D;&quot;AddAsync&quot;&gt;...+1&lt;&#x2F;button&gt;</span><br><span class="line"></span><br><span class="line">methods:&#123;</span><br><span class="line">  AddAsync()&#123;</span><br><span class="line">    this.$store.dispatch(&#39;addAsync&#39;,5)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第二种方式：<br>import { mapActions } from ‘vuex’</p>
+<p>methods:{<br>  …mapMutations([‘subAsync’])<br>}<br>如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">import &#123; mapState,mapMutations,mapActions &#125; from &#39;vuex&#39;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods:&#123;</span><br><span class="line">      &#x2F;&#x2F;获得mapMutations映射的sub函数</span><br><span class="line">      ...mapMutations([&#39;sub&#39;]),</span><br><span class="line">      &#x2F;&#x2F;当点击按钮时触发Sub函数</span><br><span class="line">      Sub()&#123;</span><br><span class="line">          &#x2F;&#x2F;调用sub函数完成对数据的操作</span><br><span class="line">          this.sub(10);</span><br><span class="line">      &#125;,</span><br><span class="line">      &#x2F;&#x2F;获得mapActions映射的addAsync函数</span><br><span class="line">      ...mapActions([&#39;subAsync&#39;]),</span><br><span class="line">      asyncSub()&#123;</span><br><span class="line">          this.subAsync(5);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed:&#123;</span><br><span class="line">      ...mapState([&#39;count&#39;])</span><br><span class="line">      </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="D-Getter"><a href="#D-Getter" class="headerlink" title="D.Getter"></a>D.Getter</h4><p>Getter用于对Store中的数据进行加工处理形成新的数据<br>它只会包装Store中保存的数据，并不会修改Store中保存的数据，当Store中的数据发生变化时，Getter生成的内容也会随之变化<br>打开store.js文件，添加getters，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">export default new Vuex.Store(&#123;</span><br><span class="line">  .......</span><br><span class="line">  getters:&#123;</span><br><span class="line">    &#x2F;&#x2F;添加了一个showNum的属性</span><br><span class="line">    showNum : state &#x3D;&gt;&#123;</span><br><span class="line">      return &#39;最新的count值为：&#39;+state.count;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>然后打开Addition.vue中，添加插值表达式使用getters</p>
+<h3></h3>
+
+<p>或者也可以在Addition.vue中，导入mapGetters，并将之映射为计算属性<br>import { mapGetters } from ‘vuex’<br>computed:{<br>  …mapGetters([‘showNum’])<br>}</p>
+<h3 id="5-vuex案例"><a href="#5-vuex案例" class="headerlink" title="5.vuex案例"></a>5.vuex案例</h3><h4 id="A-初始化案例"><a href="#A-初始化案例" class="headerlink" title="A.初始化案例"></a>A.初始化案例</h4><p>首先使用vue ui初始化一个使用vuex的案例<br>然后打开public文件夹，创建一个list.json文件，文件代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;id&quot;: 0,</span><br><span class="line">        &quot;info&quot;: &quot;Racing car sprays burning fuel into crowd.&quot;,</span><br><span class="line">        &quot;done&quot;: false</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;id&quot;: 1,</span><br><span class="line">        &quot;info&quot;: &quot;Japanese princess to wed commoner.&quot;,</span><br><span class="line">        &quot;done&quot;: false</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;id&quot;: 2,</span><br><span class="line">        &quot;info&quot;: &quot;Australian walks 100km after outback crash.&quot;,</span><br><span class="line">        &quot;done&quot;: false</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;id&quot;: 3,</span><br><span class="line">        &quot;info&quot;: &quot;Man charged over missing wedding girl.&quot;,</span><br><span class="line">        &quot;done&quot;: false</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;id&quot;: 4,</span><br><span class="line">        &quot;info&quot;: &quot;Los Angeles battles huge wildfires.&quot;,</span><br><span class="line">        &quot;done&quot;: false</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>再接着，打开main.js,添加store.js的引入，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#39;vue&#39;</span><br><span class="line">import App from &#39;.&#x2F;App.vue&#39;</span><br><span class="line">import store from &#39;.&#x2F;store.js&#39;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 1. 导入 ant-design-vue 组件库</span><br><span class="line">import Antd from &#39;ant-design-vue&#39;</span><br><span class="line">&#x2F;&#x2F; 2. 导入组件库的样式表</span><br><span class="line">import &#39;ant-design-vue&#x2F;dist&#x2F;antd.css&#39;</span><br><span class="line"></span><br><span class="line">Vue.config.productionTip &#x3D; false</span><br><span class="line">&#x2F;&#x2F; 3. 安装组件库</span><br><span class="line">Vue.use(Antd)</span><br><span class="line"></span><br><span class="line">new Vue(&#123;</span><br><span class="line">  store,</span><br><span class="line">  render: h &#x3D;&gt; h(App)</span><br><span class="line">&#125;).$mount(&#39;#app&#39;)</span><br></pre></td></tr></table></figure>
+
+<p>再接着打开store.js，添加axios请求json文件获取数据的代码，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#39;vue&#39;</span><br><span class="line">import Vuex from &#39;vuex&#39;</span><br><span class="line">import axios from &#39;axios&#39;</span><br><span class="line"></span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"></span><br><span class="line">export default new Vuex.Store(&#123;</span><br><span class="line">  state: &#123;</span><br><span class="line">    &#x2F;&#x2F;所有任务列表</span><br><span class="line">    list: [],</span><br><span class="line">    &#x2F;&#x2F;文本输入框中的值</span><br><span class="line">    inputValue: &#39;AAA&#39;</span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;</span><br><span class="line">    initList(state, list) &#123;</span><br><span class="line">      state.list &#x3D; list</span><br><span class="line">    &#125;,</span><br><span class="line">    setInputValue(state,value)&#123;</span><br><span class="line">      state.inputValue &#x3D; value</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  actions: &#123;</span><br><span class="line">    getList(context) &#123;</span><br><span class="line">      axios.get(&#39;&#x2F;list.json&#39;).then((&#123; data &#125;) &#x3D;&gt; &#123;</span><br><span class="line">        console.log(data);</span><br><span class="line">        context.commit(&#39;initList&#39;, data)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>最后，代开App.vue文件，将store中的数据获取并展示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">    &lt;a-input placeholder&#x3D;&quot;请输入任务&quot; class&#x3D;&quot;my_ipt&quot; :value&#x3D;&quot;inputValue&quot; @change&#x3D;&quot;handleInputChange&quot; &#x2F;&gt;</span><br><span class="line">    &lt;a-button type&#x3D;&quot;primary&quot;&gt;添加事项&lt;&#x2F;a-button&gt;</span><br><span class="line"></span><br><span class="line">    &lt;a-list bordered :dataSource&#x3D;&quot;list&quot; class&#x3D;&quot;dt_list&quot;&gt;</span><br><span class="line">      &lt;a-list-item slot&#x3D;&quot;renderItem&quot; slot-scope&#x3D;&quot;item&quot;&gt;</span><br><span class="line">        &lt;!-- 复选框 --&gt;</span><br><span class="line">        &lt;a-checkbox :checked&#x3D;&quot;item.done&quot;&gt;&#123;&#123;item.info&#125;&#125;&lt;&#x2F;a-checkbox&gt;</span><br><span class="line">        &lt;!-- 删除链接 --&gt;</span><br><span class="line">        &lt;a slot&#x3D;&quot;actions&quot;&gt;删除&lt;&#x2F;a&gt;</span><br><span class="line">      &lt;&#x2F;a-list-item&gt;</span><br><span class="line"></span><br><span class="line">      &lt;!-- footer区域 --&gt;</span><br><span class="line">      &lt;div slot&#x3D;&quot;footer&quot; class&#x3D;&quot;footer&quot;&gt;</span><br><span class="line">        &lt;!-- 未完成的任务个数 --&gt;</span><br><span class="line">        &lt;span&gt;0条剩余&lt;&#x2F;span&gt;</span><br><span class="line">        &lt;!-- 操作按钮 --&gt;</span><br><span class="line">        &lt;a-button-group&gt;</span><br><span class="line">          &lt;a-button type&#x3D;&quot;primary&quot;&gt;全部&lt;&#x2F;a-button&gt;</span><br><span class="line">          &lt;a-button&gt;未完成&lt;&#x2F;a-button&gt;</span><br><span class="line">          &lt;a-button&gt;已完成&lt;&#x2F;a-button&gt;</span><br><span class="line">        &lt;&#x2F;a-button-group&gt;</span><br><span class="line">        &lt;!-- 把已经完成的任务清空 --&gt;</span><br><span class="line">        &lt;a&gt;清除已完成&lt;&#x2F;a&gt;</span><br><span class="line">      &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;a-list&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; mapState &#125; from &#39;vuex&#39;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#39;app&#39;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      &#x2F;&#x2F; list:[]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  created()&#123;</span><br><span class="line">    &#x2F;&#x2F; console.log(this.$store);</span><br><span class="line">    this.$store.dispatch(&#39;getList&#39;)</span><br><span class="line">  &#125;,</span><br><span class="line">  methods:&#123;</span><br><span class="line">    handleInputChange(e)&#123;</span><br><span class="line">      &#x2F;&#x2F; console.log(e.target.value)</span><br><span class="line">      this.$store.commit(&#39;setInputValue&#39;,e.target.value)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed:&#123;</span><br><span class="line">    ...mapState([&#39;list&#39;,&#39;inputValue&#39;])</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">#app &#123;</span><br><span class="line">  padding: 10px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.my_ipt &#123;</span><br><span class="line">  width: 500px;</span><br><span class="line">  margin-right: 10px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dt_list &#123;</span><br><span class="line">  width: 500px;</span><br><span class="line">  margin-top: 10px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.footer &#123;</span><br><span class="line">  display: flex;</span><br><span class="line">  justify-content: space-between;</span><br><span class="line">  align-items: center;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="B-完成添加事项"><a href="#B-完成添加事项" class="headerlink" title="B.完成添加事项"></a>B.完成添加事项</h4><p>首先，打开App.vue文件，给“添加事项”按钮绑定点击事件，编写处理函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;绑定事件</span><br><span class="line">&lt;a-button type&#x3D;&quot;primary&quot; @click&#x3D;&quot;addItemToList&quot;&gt;添加事项&lt;&#x2F;a-button&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;编写事件处理函数</span><br><span class="line">methods:&#123;</span><br><span class="line">    ......</span><br><span class="line">    addItemToList()&#123;</span><br><span class="line">      &#x2F;&#x2F;向列表中新增事项</span><br><span class="line">      if(this.inputValue.trim().length &lt;&#x3D; 0)&#123;</span><br><span class="line">        return this.$message.warning(&#39;文本框内容不能为空&#39;)</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      this.$store.commit(&#39;addItem&#39;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后打开store.js编写addItem</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">export default new Vuex.Store(&#123;</span><br><span class="line">  state: &#123;</span><br><span class="line">    &#x2F;&#x2F;所有任务列表</span><br><span class="line">    list: [],</span><br><span class="line">    &#x2F;&#x2F;文本输入框中的值</span><br><span class="line">    inputValue: &#39;AAA&#39;,</span><br><span class="line">    &#x2F;&#x2F;下一个id</span><br><span class="line">    nextId:5</span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;</span><br><span class="line">    ........</span><br><span class="line">    &#x2F;&#x2F;添加列表项</span><br><span class="line">    addItem(state)&#123;</span><br><span class="line">      const obj &#x3D; &#123;</span><br><span class="line">        id :state.nextId,</span><br><span class="line">        info: state.inputValue.trim(),</span><br><span class="line">        done:false</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;&#x2F;将创建好的事项添加到数组list中</span><br><span class="line">      state.list.push(obj)</span><br><span class="line">      &#x2F;&#x2F;将nextId值自增</span><br><span class="line">      state.nextId++</span><br><span class="line">      state.inputValue &#x3D; &#39;&#39;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  ......</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="C-完成删除事项"><a href="#C-完成删除事项" class="headerlink" title="C.完成删除事项"></a>C.完成删除事项</h4><p>首先，打开App.vue文件，给“删除”按钮绑定点击事件，编写处理函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;绑定事件</span><br><span class="line">&lt;a slot&#x3D;&quot;actions&quot; @click&#x3D;&quot;removeItemById(item.id)&quot;&gt;删除&lt;&#x2F;a&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;编写事件处理函数</span><br><span class="line">methods:&#123;</span><br><span class="line">    ......</span><br><span class="line">    removeItemById(id)&#123;</span><br><span class="line">      &#x2F;&#x2F;根据id删除事项</span><br><span class="line">      this.$store.commit(&#39;removeItem&#39;,id)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后打开store.js编写addItem</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">export default new Vuex.Store(&#123;</span><br><span class="line">  ......</span><br><span class="line">  mutations: &#123;</span><br><span class="line">    ........</span><br><span class="line">    removeItem(state,id)&#123;</span><br><span class="line">      &#x2F;&#x2F;根据id删除事项数据</span><br><span class="line">      const index &#x3D; state.list.findIndex( x &#x3D;&gt; x.id &#x3D;&#x3D;&#x3D; id )</span><br><span class="line">      &#x2F;&#x2F; console.log(index);</span><br><span class="line">      if(index !&#x3D; -1) state.list.splice(index,1);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  ......</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="D-完成选中状态的改变"><a href="#D-完成选中状态的改变" class="headerlink" title="D.完成选中状态的改变"></a>D.完成选中状态的改变</h4><p>首先，打开App.vue文件，给“复选”按钮绑定点击事件，编写处理函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;绑定事件</span><br><span class="line">&lt;a-checkbox :checked&#x3D;&quot;item.done&quot; @change&#x3D;&quot;cbStateChanged(item.id,$event)&quot;&gt;&#123;&#123;item.info&#125;&#125;&lt;&#x2F;a-checkbox&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;编写事件处理函数</span><br><span class="line">methods:&#123;</span><br><span class="line">    ......</span><br><span class="line">    cbStateChanged(id,e)&#123;</span><br><span class="line">      &#x2F;&#x2F;复选框状态改变时触发</span><br><span class="line">      const param &#x3D; &#123;</span><br><span class="line">        id:id,</span><br><span class="line">        status:e.target.checked</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F;根据id更改事项状态</span><br><span class="line">      this.$store.commit(&#39;changeStatus&#39;,param)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后打开store.js编写addItem</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">export default new Vuex.Store(&#123;</span><br><span class="line">  ......</span><br><span class="line">  mutations: &#123;</span><br><span class="line">    ........</span><br><span class="line">    changeStatus(state,param)&#123;</span><br><span class="line">      &#x2F;&#x2F;根据id改变对应事项的状态</span><br><span class="line">      const index &#x3D; state.list.findIndex( x &#x3D;&gt; x.id &#x3D;&#x3D;&#x3D; param.id )</span><br><span class="line">      if(index !&#x3D; -1) state.list[index].done &#x3D; param.status</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  ......</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="E-剩余项统计"><a href="#E-剩余项统计" class="headerlink" title="E.剩余项统计"></a>E.剩余项统计</h4><p>打开store.js，添加getters完成剩余项统计</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">getters:&#123;</span><br><span class="line">  unDoneLength(state)&#123;</span><br><span class="line">    const temp &#x3D; state.list.filter( x &#x3D;&gt; x.done &#x3D;&#x3D;&#x3D; false )</span><br><span class="line">    console.log(temp)</span><br><span class="line">    return temp.length</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>打开App.vue，使用getters展示剩余项</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;使用映射好的计算属性展示剩余项</span><br><span class="line">&lt;!-- 未完成的任务个数 --&gt;</span><br><span class="line">&lt;span&gt;&#123;&#123;unDoneLength&#125;&#125;条剩余&lt;&#x2F;span&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;导入getters</span><br><span class="line">import &#123; mapState,mapGetters &#125; from &#39;vuex&#39;</span><br><span class="line">&#x2F;&#x2F;映射</span><br><span class="line">computed:&#123;</span><br><span class="line">  ...mapState([&#39;list&#39;,&#39;inputValue&#39;]),</span><br><span class="line">  ...mapGetters([&#39;unDoneLength&#39;])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="F-清除完成事项"><a href="#F-清除完成事项" class="headerlink" title="F.清除完成事项"></a>F.清除完成事项</h4><p>首先，打开App.vue文件，给“清除已完成”按钮绑定点击事件，编写处理函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 把已经完成的任务清空 --&gt;</span><br><span class="line">&lt;a @click&#x3D;&quot;clean&quot;&gt;清除已完成&lt;&#x2F;a&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;编写事件处理函数</span><br><span class="line">methods:&#123;</span><br><span class="line">  ......</span><br><span class="line">  clean()&#123;</span><br><span class="line">    &#x2F;&#x2F;清除已经完成的事项</span><br><span class="line">    this.$store.commit(&#39;cleanDone&#39;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后打开store.js编写addItem</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">export default new Vuex.Store(&#123;</span><br><span class="line">  ......</span><br><span class="line">  mutations: &#123;</span><br><span class="line">    ........</span><br><span class="line">    cleanDone(state)&#123;</span><br><span class="line">      state.list &#x3D; state.list.filter( x &#x3D;&gt; x.done &#x3D;&#x3D;&#x3D; false )</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  ......</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="G-点击选项卡切换事项"><a href="#G-点击选项卡切换事项" class="headerlink" title="G.点击选项卡切换事项"></a>G.点击选项卡切换事项</h4><p>打开App.vue，给“全部”，“未完成”，“已完成”三个选项卡绑定点击事件，编写处理函数<br>并将列表数据来源更改为一个getters。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;a-list bordered :dataSource&#x3D;&quot;infoList&quot; class&#x3D;&quot;dt_list&quot;&gt;</span><br><span class="line">  ......</span><br><span class="line">  &lt;!-- 操作按钮 --&gt;</span><br><span class="line">  &lt;a-button-group&gt;</span><br><span class="line">    &lt;a-button :type&#x3D;&quot;viewKey &#x3D;&#x3D;&#x3D;&#39;all&#39;?&#39;primary&#39;:&#39;default&#39;&quot; @click&#x3D;&quot;changeList(&#39;all&#39;)&quot;&gt;全部&lt;&#x2F;a-button&gt;</span><br><span class="line">    &lt;a-button :type&#x3D;&quot;viewKey &#x3D;&#x3D;&#x3D;&#39;undone&#39;?&#39;primary&#39;:&#39;default&#39;&quot; @click&#x3D;&quot;changeList(&#39;undone&#39;)&quot;&gt;未完成&lt;&#x2F;a-button&gt;</span><br><span class="line">    &lt;a-button :type&#x3D;&quot;viewKey &#x3D;&#x3D;&#x3D;&#39;done&#39;?&#39;primary&#39;:&#39;default&#39;&quot; @click&#x3D;&quot;changeList(&#39;done&#39;)&quot;&gt;已完成&lt;&#x2F;a-button&gt;</span><br><span class="line">  &lt;&#x2F;a-button-group&gt;</span><br><span class="line">  ......</span><br><span class="line">&lt;&#x2F;a-list&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;编写事件处理函数以及映射计算属性</span><br><span class="line">methods:&#123;</span><br><span class="line">  ......</span><br><span class="line">  changeList( key )&#123;</span><br><span class="line">    &#x2F;&#x2F;点击“全部”，“已完成”，“未完成”时触发</span><br><span class="line">    this.$store.commit(&#39;changeKey&#39;,key)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br><span class="line">computed:&#123;</span><br><span class="line">  ...mapState([&#39;list&#39;,&#39;inputValue&#39;,&#39;viewKey&#39;]),</span><br><span class="line">  ...mapGetters([&#39;unDoneLength&#39;,&#39;infoList&#39;])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>打开store.js，添加getters，mutations，state</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">export default new Vuex.Store(&#123;</span><br><span class="line">  state: &#123;</span><br><span class="line">    ......</span><br><span class="line">    &#x2F;&#x2F;保存默认的选项卡值</span><br><span class="line">    viewKey:&#39;all&#39;</span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;</span><br><span class="line">    ......</span><br><span class="line">    changeKey(state,key)&#123;</span><br><span class="line">      &#x2F;&#x2F;当用户点击“全部”，“已完成”，“未完成”选项卡时触发</span><br><span class="line">      state.viewKey &#x3D; key</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  ......</span><br><span class="line">  getters:&#123;</span><br><span class="line">    .......</span><br><span class="line">    infoList(state)&#123;</span><br><span class="line">      if(state.viewKey &#x3D;&#x3D;&#x3D; &#39;all&#39;)&#123;</span><br><span class="line">        return state.list</span><br><span class="line">      &#125;</span><br><span class="line">      if(state.viewKey &#x3D;&#x3D;&#x3D; &#39;undone&#39;)&#123;</span><br><span class="line">        return state.list.filter( x &#x3D;&gt; x.done &#x3D;&#x3D;&#x3D; false )</span><br><span class="line">      &#125;</span><br><span class="line">      if(state.viewKey &#x3D;&#x3D;&#x3D; &#39;done&#39;)&#123;</span><br><span class="line">        return state.list.filter( x &#x3D;&gt; x.done &#x3D;&#x3D;&#x3D; true )</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/06/Vuex/" data-id="ckb3eytqk0007vstg4xnb50ea" class="article-share-link">
+        分享
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/06/06/Vue%E5%B8%B8%E7%94%A8%E7%89%B9%E6%80%A7/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            Vue常用特性
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/06/06/JavaScript%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">JavaScript原型与原型链</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 Just Coding</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="Just Coding"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/tags">标签</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>
